@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masukkan Nama Anda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Form Input Nama</h2>
+        
+        <form method="POST">
+            <label for="nama">Masukkan Nama Anda</label>
+            <input type="text" id="nama" name="input_nama" placeholder="Tulis namamu di sini..." required>
+            <button type="submit">Kirim</button>
+        </form>
+
+        {% if data_nama %}
+            <div class="result-box">
+                <h3>Halo, {{ data_nama }}!</h3>
+                <p>Selamat datang di sistem kami.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
