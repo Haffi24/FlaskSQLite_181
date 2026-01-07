@@ -26,13 +26,14 @@ def index():
     conn = connectdb()
     books = conn.execute("SELECT * FROM books").fetchall()
     conn.close()
-    return render_template("index.html", books=books)
+    return render_template('index.html', books=books)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        judul = request.form["judul"]
-        penulis = request.form["penulis"]
+        judul = request.form['judul']
+        penulis = request.form['penulis']
+        
         conn = connectdb()
         conn.execute("INSERT INTO books (judul, penulis) VALUES (?, ?)", (judul, penulis))
         conn.commit()
@@ -46,12 +47,11 @@ def edit(id):
     book = conn.execute("SELECT * FROM books WHERE id = ?", (id,)).fetchone()
     
     if not book:
-        conn.close()
         return "Buku tidak ditemukan", 404
-        
+
     if request.method == 'POST':
-        judul = request.form["judul"]
-        penulis = request.form["penulis"]
+        judul = request.form['judul']
+        penulis = request.form['penulis']
         conn.execute("UPDATE books SET judul = ?, penulis = ? WHERE id = ?", (judul, penulis, id))
         conn.commit()
         conn.close()
@@ -70,5 +70,4 @@ def delete(id):
 
 if __name__ == '__main__':
     init_db()
-    # Menjalankan di host 0.0.0.0 agar bisa diakses di jaringan lokal
-    app.run(host='0.0.0.0', port=6001, debug=True)
+    app.run(host='0.0.0.0', port=6007, debug=True)
